@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title>Hot Takes app icon</title>
+  <rect width="512" height="512" rx="96" fill="#111318"/>
+  <path d="M104 380c0-74 42-118 91-153 45-32 52-76 43-115 80 33 125 93 123 169 23-15 34-39 35-67 34 38 52 79 52 123 0 95-76 151-172 151-99 0-172-40-172-108Z" fill="#f45d5f"/>
+  <path d="M190 402c0-42 26-66 54-86 26-19 30-45 25-68 47 19 73 54 72 98 14-9 20-23 21-39 20 22 30 46 30 72 0 55-44 88-100 88-58 0-102-23-102-65Z" fill="#f6c85f"/>
+  <path d="M169 143h174" stroke="#f8f3e8" stroke-width="30" stroke-linecap="round"/>
+  <path d="M151 196h112" stroke="#f8f3e8" stroke-width="24" stroke-linecap="round"/>
+</svg>

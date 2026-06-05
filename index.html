@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111318" />
+    <meta
+      name="description"
+      content="A party prompt PWA for Hot Takes, Confessions, Social Experiments, and Red Flag - Green Flag."
+    />
+    <title>Hot Takes</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./assets/icon-192.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar" aria-label="App header">
+        <div>
+          <p class="eyebrow">Pick a deck</p>
+          <h1>Hot Takes</h1>
+        </div>
+        <button class="install-button" id="installButton" type="button" hidden>
+          Install
+        </button>
+      </section>
+
+      <section class="deck-grid" id="deckGrid" aria-label="Prompt decks"></section>
+
+      <section class="draw-view" id="drawView" aria-live="polite" hidden>
+        <div class="draw-card" id="drawCard">
+          <p class="deck-label" id="deckLabel"></p>
+          <p class="prompt-text" id="promptText"></p>
+        </div>
+        <div class="actions">
+          <button class="icon-button" id="backButton" type="button" aria-label="Back to decks">
+            <span aria-hidden="true">←</span>
+          </button>
+          <button class="primary-button" id="drawAgainButton" type="button">
+            Draw again
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
