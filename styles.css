@@ -233,12 +233,17 @@ h1 {
     linear-gradient(135deg, var(--accent), transparent 56%),
     rgba(255, 255, 255, 0.1);
   box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: clamp(18px, 4vw, 42px);
+}
+
+.draw-card .deck-label {
+  align-self: start;
 }
 
 .prompt-text {
+  align-self: center;
   max-width: 16ch;
   margin: 0;
   font-size: clamp(2.7rem, 8vw, 7.6rem);
