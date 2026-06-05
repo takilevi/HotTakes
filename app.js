@@ -72,10 +72,15 @@ const decks = [
 ];
 
 const deckGrid = document.querySelector("#deckGrid");
+const customView = document.querySelector("#customView");
+const customForm = document.querySelector("#customForm");
+const customTakeInput = document.querySelector("#customTakeInput");
 const drawView = document.querySelector("#drawView");
 const drawCard = document.querySelector("#drawCard");
 const deckLabel = document.querySelector("#deckLabel");
 const promptText = document.querySelector("#promptText");
+const addTakeButton = document.querySelector("#addTakeButton");
+const cancelCustomButton = document.querySelector("#cancelCustomButton");
 const backButton = document.querySelector("#backButton");
 const drawAgainButton = document.querySelector("#drawAgainButton");
 const installButton = document.querySelector("#installButton");
@@ -103,16 +108,41 @@ function showDeck(deck) {
   activeDeck = deck;
   lastPrompt = "";
   deckGrid.hidden = true;
+  customView.hidden = true;
   drawView.hidden = false;
   drawCard.style.setProperty("--accent", deck.accent);
   deckLabel.textContent = deck.title;
   promptText.textContent = drawPrompt(deck);
+  drawAgainButton.hidden = false;
+}
+
+function showCustomForm() {
+  activeDeck = null;
+  deckGrid.hidden = true;
+  drawView.hidden = true;
+  customView.hidden = false;
+  customTakeInput.value = "";
+  customTakeInput.focus();
+}
+
+function showCustomTake(take) {
+  activeDeck = null;
+  customView.hidden = true;
+  deckGrid.hidden = true;
+  drawView.hidden = false;
+  drawCard.style.setProperty("--accent", "#f45d5f");
+  deckLabel.textContent = "Your Hot Take";
+  promptText.textContent = take;
+  drawAgainButton.hidden = true;
 }
 
 function showGrid() {
   activeDeck = null;
+  customView.hidden = true;
   drawView.hidden = true;
   deckGrid.hidden = false;
+  promptText.textContent = "";
+  drawAgainButton.hidden = false;
 }
 
 function renderDecks() {
@@ -133,6 +163,22 @@ function renderDecks() {
 
   deckGrid.replaceChildren(...cards);
 }
+
+addTakeButton.addEventListener("click", showCustomForm);
+
+customForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const take = customTakeInput.value.trim();
+
+  if (!take) {
+    customTakeInput.focus();
+    return;
+  }
+
+  showCustomTake(take);
+});
+
+cancelCustomButton.addEventListener("click", showGrid);
 
 drawAgainButton.addEventListener("click", () => {
   if (!activeDeck) return;

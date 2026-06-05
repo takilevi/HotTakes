@@ -52,6 +52,13 @@ button {
   gap: 16px;
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
 .eyebrow,
 .deck-label {
   margin: 0 0 8px;
@@ -87,6 +94,13 @@ h1 {
 .icon-button {
   width: 52px;
   font-size: 1.6rem;
+}
+
+.add-button {
+  display: inline-grid;
+  place-items: center;
+  font-size: 2rem;
+  line-height: 1;
 }
 
 .deck-grid {
@@ -165,6 +179,51 @@ h1 {
   gap: 18px;
 }
 
+.custom-view {
+  flex: 1;
+  display: grid;
+  align-items: stretch;
+}
+
+.custom-form {
+  min-height: 58svh;
+  padding: clamp(24px, 5vw, 56px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(244, 93, 95, 0.88), transparent 56%),
+    rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.custom-input {
+  flex: 1;
+  width: 100%;
+  min-height: 220px;
+  border: 0;
+  border-radius: 8px;
+  resize: none;
+  background: rgba(17, 19, 24, 0.42);
+  color: var(--ink);
+  font: inherit;
+  font-size: clamp(2rem, 6vw, 5.8rem);
+  font-weight: 950;
+  line-height: 0.98;
+  padding: clamp(16px, 3vw, 28px);
+  outline: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.custom-input::placeholder {
+  color: rgba(248, 243, 232, 0.56);
+}
+
+.custom-input:focus {
+  outline: 2px solid var(--ink);
+}
+
 .draw-card {
   min-height: 58svh;
   padding: clamp(24px, 5vw, 56px);
@@ -201,32 +260,98 @@ h1 {
 
 @media (max-width: 700px) {
   .app-shell {
-    padding: 18px;
+    padding: 16px;
+    gap: 16px;
   }
 
   .topbar {
     align-items: flex-start;
+    gap: 12px;
+  }
+
+  .topbar > div:first-child {
+    min-width: 0;
+  }
+
+  .topbar-actions {
+    flex: 0 0 auto;
+    gap: 8px;
+  }
+
+  h1 {
+    font-size: clamp(2.35rem, 12vw, 3.2rem);
+    overflow-wrap: anywhere;
+  }
+
+  .install-button,
+  .primary-button,
+  .icon-button {
+    min-height: 46px;
+  }
+
+  .install-button,
+  .primary-button {
+    padding: 0 18px;
+  }
+
+  .icon-button {
+    width: 46px;
   }
 
   .deck-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .deck-card {
-    min-height: 150px;
+    min-height: 138px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
   .deck-icon {
-    margin-bottom: 28px;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 2px;
   }
 
   .deck-title {
-    max-width: 13ch;
-    font-size: clamp(2.25rem, 12vw, 3.7rem);
+    max-width: none;
+    font-size: clamp(2rem, 9.5vw, 2.85rem);
+    line-height: 0.98;
+    overflow-wrap: anywhere;
+  }
+
+  .deck-count {
+    position: static;
+    align-self: flex-end;
+    margin-top: auto;
+    font-size: 0.82rem;
+  }
+
+  .custom-form,
+  .draw-card {
+    min-height: 56svh;
+    padding: 22px;
+  }
+
+  .custom-input {
+    min-height: 250px;
+    font-size: clamp(1.7rem, 9.5vw, 3rem);
+    line-height: 1.08;
+    overflow-wrap: anywhere;
   }
 
   .prompt-text {
-    max-width: 12ch;
-    font-size: clamp(2.7rem, 13vw, 5.7rem);
+    max-width: 100%;
+    font-size: clamp(2.15rem, 11vw, 4.1rem);
+    line-height: 1;
+    overflow-wrap: anywhere;
+  }
+
+  .actions {
+    flex-wrap: wrap;
   }
 }

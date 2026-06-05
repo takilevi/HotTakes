@@ -1,4 +1,4 @@
-const CACHE_NAME = "hot-takes-v1";
+const CACHE_NAME = "hot-takes-v3";
 const APP_ASSETS = [
   "./",
   "./index.html",
