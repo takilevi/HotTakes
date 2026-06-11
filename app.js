@@ -13,6 +13,13 @@ const decks = [
       "Mount Everest is not the tallest mountain",
       "Ice skating is water skating",
       "Wearing shoes indoors should be illegal.",
+      "Talent matters more than hard work.",
+      "Team-building activities rarely build teams.",
+      "Being busy is not the same as being productive.",
+      "The best employee is not always the best manager.",
+      "Open offices were a mistake.",
+      "Loyalty to employers is outdated.",
+      "AI will make average people more powerful than experts.",
     ],
   },
   {
@@ -34,6 +41,14 @@ const decks = [
       "What's something attractive that shouldn't be?",
       "What's a trait people pretend not to care about?",
       "What dating advice is complete nonsense?",
+      "A lie you still don't regret.",
+      "The pettiest reason you've disliked someone.",
+      "A popular thing you've pretended to enjoy.",
+      "The dumbest thing you've spent money on.",
+      "A skill people assume you have, but you don't.",
+      "Something you've accidentally stolen.",
+      "A bad habit you've successfully hidden.",
+      "The most ridiculous thing you've been competitive about.",
     ],
   },
   {
@@ -50,6 +65,10 @@ const decks = [
       "Find someone who has quit a job dramatically.",
       "Find someone with a toxic trait they defend.",
       "Find someone who thinks jealousy is normal.",
+      "Find someone who has never watched Star Wars.",
+      "Find someone who prefers phone calls over texting.",
+      "Find someone who would rather live in the mountains than by the sea.",
+      "Find someone who has a hobby nobody at work knows about.",
     ],
   },
   {
@@ -67,11 +86,23 @@ const decks = [
       "Astrology.",
       "Has tons of tabs open",
       "Sends messages saying only 'hi'",
+      "Uses speakerphone in public.",
+      "Has 5+ alarms every morning.",
+      "Replies with voice messages only.",
+      "Keeps their phone on 1% battery.",
+      "Doesn't save contacts in their phone.",
+      "Leaves browser tabs open for months.",
+      "Doesn't use a calendar.",
+      "Always arrives exactly on time, never early or late.",
+      "Has over 10,000 unread emails.",
+      "Watches movies at 1.5x speed.",
     ],
   },
 ];
 
 const deckGrid = document.querySelector("#deckGrid");
+const listView = document.querySelector("#listView");
+const cardList = document.querySelector("#cardList");
 const customView = document.querySelector("#customView");
 const customForm = document.querySelector("#customForm");
 const customTakeInput = document.querySelector("#customTakeInput");
@@ -79,8 +110,10 @@ const drawView = document.querySelector("#drawView");
 const drawCard = document.querySelector("#drawCard");
 const deckLabel = document.querySelector("#deckLabel");
 const promptText = document.querySelector("#promptText");
+const allCardsButton = document.querySelector("#allCardsButton");
 const addTakeButton = document.querySelector("#addTakeButton");
 const cancelCustomButton = document.querySelector("#cancelCustomButton");
+const closeListButton = document.querySelector("#closeListButton");
 const backButton = document.querySelector("#backButton");
 const drawAgainButton = document.querySelector("#drawAgainButton");
 const installButton = document.querySelector("#installButton");
@@ -88,6 +121,7 @@ const installButton = document.querySelector("#installButton");
 let activeDeck = null;
 let deferredInstallPrompt = null;
 let lastPrompt = "";
+let returnView = "grid";
 
 function drawPrompt(deck) {
   if (deck.prompts.length === 1) {
@@ -106,8 +140,11 @@ function drawPrompt(deck) {
 
 function showDeck(deck) {
   activeDeck = deck;
+  returnView = "grid";
   lastPrompt = "";
+  backButton.setAttribute("aria-label", "Back to decks");
   deckGrid.hidden = true;
+  listView.hidden = true;
   customView.hidden = true;
   drawView.hidden = false;
   drawCard.style.setProperty("--accent", deck.accent);
@@ -119,6 +156,7 @@ function showDeck(deck) {
 function showCustomForm() {
   activeDeck = null;
   deckGrid.hidden = true;
+  listView.hidden = true;
   drawView.hidden = true;
   customView.hidden = false;
   customTakeInput.value = "";
@@ -127,8 +165,11 @@ function showCustomForm() {
 
 function showCustomTake(take) {
   activeDeck = null;
+  returnView = "grid";
+  backButton.setAttribute("aria-label", "Back to decks");
   customView.hidden = true;
   deckGrid.hidden = true;
+  listView.hidden = true;
   drawView.hidden = false;
   drawCard.style.setProperty("--accent", "#f45d5f");
   deckLabel.textContent = "Your Hot Take";
@@ -138,11 +179,38 @@ function showCustomTake(take) {
 
 function showGrid() {
   activeDeck = null;
+  returnView = "grid";
   customView.hidden = true;
   drawView.hidden = true;
+  listView.hidden = true;
   deckGrid.hidden = false;
   promptText.textContent = "";
   drawAgainButton.hidden = false;
+}
+
+function showList() {
+  activeDeck = null;
+  returnView = "grid";
+  customView.hidden = true;
+  drawView.hidden = true;
+  deckGrid.hidden = true;
+  listView.hidden = false;
+  promptText.textContent = "";
+  drawAgainButton.hidden = false;
+}
+
+function showListedCard(deck, prompt) {
+  activeDeck = null;
+  returnView = "list";
+  backButton.setAttribute("aria-label", "Back to all cards");
+  customView.hidden = true;
+  deckGrid.hidden = true;
+  listView.hidden = true;
+  drawView.hidden = false;
+  drawCard.style.setProperty("--accent", deck.accent);
+  deckLabel.textContent = deck.title;
+  promptText.textContent = prompt;
+  drawAgainButton.hidden = true;
 }
 
 function renderDecks() {
@@ -164,6 +232,33 @@ function renderDecks() {
   deckGrid.replaceChildren(...cards);
 }
 
+function renderCardList() {
+  const cards = decks.flatMap((deck) =>
+    deck.prompts.map((prompt) => {
+      const card = document.createElement("button");
+      card.className = "list-card";
+      card.type = "button";
+      card.style.setProperty("--accent", deck.accent);
+      card.setAttribute("aria-label", `Open ${prompt} from ${deck.title}`);
+
+      const text = document.createElement("span");
+      text.className = "list-card-text";
+      text.textContent = prompt;
+
+      const label = document.createElement("span");
+      label.className = "list-card-deck";
+      label.textContent = deck.title;
+
+      card.append(text, label);
+      card.addEventListener("click", () => showListedCard(deck, prompt));
+      return card;
+    }),
+  );
+
+  cardList.replaceChildren(...cards);
+}
+
+allCardsButton.addEventListener("click", showList);
 addTakeButton.addEventListener("click", showCustomForm);
 
 customForm.addEventListener("submit", (event) => {
@@ -179,13 +274,21 @@ customForm.addEventListener("submit", (event) => {
 });
 
 cancelCustomButton.addEventListener("click", showGrid);
+closeListButton.addEventListener("click", showGrid);
 
 drawAgainButton.addEventListener("click", () => {
   if (!activeDeck) return;
   promptText.textContent = drawPrompt(activeDeck);
 });
 
-backButton.addEventListener("click", showGrid);
+backButton.addEventListener("click", () => {
+  if (returnView === "list") {
+    showList();
+    return;
+  }
+
+  showGrid();
+});
 
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
@@ -208,3 +311,4 @@ if ("serviceWorker" in navigator) {
 }
 
 renderDecks();
+renderCardList();

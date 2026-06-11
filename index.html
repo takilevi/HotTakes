@@ -12,7 +12,7 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./assets/icon-192.png" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=7" />
   </head>
   <body>
     <main class="app-shell">
@@ -22,6 +22,15 @@
           <h1>Hot Takes</h1>
         </div>
         <div class="topbar-actions">
+          <button
+            class="icon-button list-button"
+            id="allCardsButton"
+            type="button"
+            aria-label="See all cards"
+            title="See all cards"
+          >
+            <span aria-hidden="true">☰</span>
+          </button>
           <button
             class="icon-button add-button"
             id="addTakeButton"
@@ -38,6 +47,16 @@
       </section>
 
       <section class="deck-grid" id="deckGrid" aria-label="Prompt decks"></section>
+
+      <section class="list-view" id="listView" aria-label="All cards" hidden>
+        <div class="list-header">
+          <p class="deck-label">All cards</p>
+          <button class="icon-button" id="closeListButton" type="button" aria-label="Back to decks">
+            <span aria-hidden="true">←</span>
+          </button>
+        </div>
+        <div class="card-list" id="cardList"></div>
+      </section>
 
       <section class="custom-view" id="customView" hidden>
         <form class="custom-form" id="customForm">
@@ -75,6 +94,6 @@
       </section>
     </main>
 
-    <script src="./app.js" type="module"></script>
+    <script src="./app.js?v=7" type="module"></script>
   </body>
 </html>

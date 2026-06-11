@@ -110,6 +110,82 @@ h1 {
   gap: clamp(14px, 2vw, 22px);
 }
 
+.list-view {
+  flex: 1;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 14px;
+  min-height: 0;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.list-header .deck-label {
+  margin: 0;
+}
+
+.card-list {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.list-card {
+  min-height: 72px;
+  padding: 14px 18px 14px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-left: 8px solid var(--accent);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 24%, transparent), transparent 46%),
+    var(--surface);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.18);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.list-card:hover,
+.list-card:focus-visible {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 32%, transparent), transparent 48%),
+    var(--surface-strong);
+  border-color: rgba(255, 255, 255, 0.34);
+  border-left-color: var(--accent);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.list-card-text {
+  min-width: 0;
+  font-size: clamp(1.05rem, 2vw, 1.55rem);
+  font-weight: 850;
+  line-height: 1.12;
+}
+
+.list-card-deck {
+  padding: 7px 9px;
+  border-radius: 999px;
+  background: rgba(17, 19, 24, 0.38);
+  color: rgba(248, 243, 232, 0.82);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .deck-card {
   position: relative;
   min-height: clamp(170px, 27svh, 290px);
@@ -306,6 +382,19 @@ h1 {
   .deck-grid {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+
+  .card-list {
+    gap: 8px;
+  }
+
+  .list-card {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .list-card-deck {
+    justify-self: start;
   }
 
   .deck-card {
